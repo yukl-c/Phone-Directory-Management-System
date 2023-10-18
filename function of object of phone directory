@@ -1,0 +1,106 @@
+def main():
+    name_list=[]
+    ans=True
+    while ans:
+        print ("""
+      ******* Phone Directory Management System *******
+      1.Insert new records
+      2.Delete existing records
+      3.Search a record by name
+      4.Display records in sorted order
+      5.Quit the system
+      """)
+        ans=input("What would you like to do? ") 
+
+        if ans =='1': 
+            print("insert new records:")
+            # Your code about how to insert new records #
+            # using queue #
+            def ans1():
+                YN="yes"
+                while YN == "yes":
+                    name=input("what is the name? Please press Enter if no data inserts. Repeated name is not allowed.")
+                    if name != '':
+                        name_list.append(name)
+                    for i in range (1,len(name_list)):
+                        if name_list[i-1]==name:
+                            name_list.remove(name)
+                            print("Repeated name is not allowed.")
+                            return ans1()
+                    num=input("what is the contact number? Please press Enter if no data inserts.")
+                    if name == '':
+                        name = num
+                        name_list.append(name)
+                    try:
+                        num=int(num)
+                    except ValueError:
+                        print("Wrong format of contact number in!")
+                        name_list.remove(name)
+                        return ans1()
+                    address=input("what is the address? Please press Enter if no data inserts.")
+                    user=[]
+                    user.append(name)
+                    user.append(num)
+                    user.append(address)
+                    p.add(user)
+                    print()
+                    p.printRecords()
+                    YN=input("Do you want to insert more records? Please type yes/no. ")
+                    if YN !="yes" and YN != "no":
+                        print("Unknown Option Selected!")
+                
+            ans1()
+        
+      
+        elif ans == '2':
+            print("delete records:")
+            # Your code about how to delete existing records #
+            ask=input("Do you want to delete all existing records(1) or specific existing record(2)? Please enter the number. ")
+            if ask =='1':
+                p.deleteAllRecords()
+                name_list.clear()
+                p.printRecords()
+            
+            elif ask =='2':
+                def ans22():
+                    DelValue=input("What record you want to delete？ Please enter the name. Please type null if you want to finish. ")
+                    while DelValue != "null":
+                        if p.deleteRecords_list(DelValue) == False:
+                            print("Unknown Name!")
+                            return ans22()
+                        else:
+                            p.deleteRecords_list(DelValue)
+                            print("Existing record(s):")
+                            name_list.remove(DelValue)
+                            p.printRecords()
+                        print()
+                        DelValue=input("What record you want to delete？ Please enter the name. Please type null if you want to finish. ")
+                
+                ans22()
+      
+        elif ans == '3':
+            print("search a record:")      
+           # Your code about how to search a record by name #
+            search=input("What record you want to search？ Please enter the name. Please type null if you do not want to search. ")
+            while search != "null":
+                if p.isPresent_Records(search) == False:
+                    print("Unknown Option Selected!")
+                print()
+                search=input("What record you want to search？ Please enter the name. Please type null if you do not want to search. ")
+
+        elif ans == '4':
+            print("display records in sorted order:")   
+            # Your code about how to display records in sorted order#
+            print("The records are sorted in assending order by letters from  name. ")
+            p.selectionSort()
+            p.printRecords()
+
+        elif ans == '5': 
+            break
+
+        else: 
+            print("Unknown Option Selected!")
+
+
+if __name__ == '__main__':
+    main()
