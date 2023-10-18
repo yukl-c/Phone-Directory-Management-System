@@ -1,0 +1,89 @@
+class Phone(object):
+    class Node:
+        def __init__(self, v, n=None):
+            self.value = v
+            self.next = n
+            
+
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    def isEmpty(self):
+        return self.size == 0
+    
+    def add(self, value):
+        temp = self.Node(value, None)
+        self.size += 1
+        if self.head == None:
+            self.head = self.tail = temp
+        else:
+            self.tail.next = temp
+            self.tail = temp
+
+    def length(self):
+        return self.size
+    
+    def printRecords(self):
+        temp = self.head
+        if temp != None:
+            print("index|"," Record([name, phone number, address]):")
+            i=1
+        while temp != None:
+            print(i,"   | ",temp.value, end=" ")
+            i+=1
+            temp = temp.next
+            print()
+    
+     
+    def deleteRecords_list(self, delValue):
+        currNode = self.head
+        while currNode != None and currNode.value[0] == delValue:
+            self.head = currNode.next
+            self.size -= 1
+            return True
+        while currNode != None:
+            nextNode = currNode.next
+            if nextNode != None and nextNode.value[0] == delValue:
+                currNode.next = nextNode.next
+                self.size -= 1
+                return True
+            else:
+                currNode = nextNode
+        return False
+     
+    def deleteAllRecords(self):
+        while (self.head != None):
+            temp = self.head
+            self.head = self.head.next
+            temp = None
+        print("All records are deleted.")
+    
+    def isPresent_Records(self, data):
+        temp = self.head
+        while temp != None:
+            if temp.value [0]== data:
+                print(temp.value)
+                return True
+            temp = temp.next
+        return False
+
+    def selectionSort(self):
+        temp = self.head
+        curr=None
+        minNode=None
+        while temp!=None:
+            minNode = temp
+            curr= temp.next
+            while curr!=None:
+                if (minNode.value[0] > curr.value[0]):
+                    minNode = curr
+                curr = curr.next
+            x = temp.value
+            temp.value = minNode.value
+            minNode.value = x
+            temp = temp.next 
+                
+                
+                
+p=Phone()
